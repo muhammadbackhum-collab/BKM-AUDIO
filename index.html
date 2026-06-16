@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BKM AUDIO — Sound System & Rental</title>
+
+  <link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#08121a;
+      --panel:#091622;
+      --card:#0f2430;
+      --neon:#00e6ff;
+      --neon-2:#8a56ff;
+      --muted: #b8d7df;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,Segoe UI,Roboto,Arial;
+      background: linear-gradient(180deg, #07121a 0%, #071924 100%);
+      color:#e6f7fb;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* NAV */
+    header{
+      position:fixed;
+      inset:0 0 auto 0;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 56px;
+      background: rgba(6,12,18,0.5);
+      border-bottom:1px solid rgba(0,230,255,0.05);
+      backdrop-filter: blur(6px);
+      z-index:50;
+    }
+    .logo{color:var(--neon); font-weight:800; letter-spacing:0.6px}
+    nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; align-items:center}
+    nav a{color:var(--neon); text-decoration:none; font-weight:500; opacity:0.92}
+    nav a:hover{opacity:1; text-shadow:0 0 10px rgba(0,230,255,0.15)}
+
+    main{padding-top:96px; max-width:1180px; margin:0 auto; padding-left:28px; padding-right:28px;}
+
+    /* HERO (left avatar, right text) */
+    .hero{
+      display:flex;
+      gap:40px;
+      align-items:center;
+      padding:36px 0 30px;
+    }
+    .hero-left{
+      width:300px;
+      flex:0 0 300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+.avatar-wrap{
+  position:relative;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  
+  /* Glow biru keluar */
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.499) 0%, rgba(0, 255, 255, 0.882) 60%, transparent 100%);
+  box-shadow:
+    0 0 35px rgba(0, 255, 255, 0.836),
+    0 0 60px rgba(0, 255, 255, 0.259),
+    0 0 100px rgba(8, 235, 235, 0.521);
+}
+
+.avatar{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  overflow:hidden;
+
+  /* Border putih tebal */
+  border:8px solid #ffffff;
+
+  /* Glow dalam lembut */
+  box-shadow:
+    0 0 15px rgba(0,255,255,0.5) inset,
+    0 0 10px rgba(0,255,255,0.3);
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+
+    .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+
+    .hero-right{flex:1; padding-right:12px}
+    .hero-right h1{
+      color:var(--neon);
+      font-size:40px;
+      margin:0 0 8px 0;
+      letter-spacing:0.4px;
+    }
+    .hero-right p{
+      color:var(--muted);
+      margin:0 0 18px 0;
+      max-width:720px;
+    }
+    .hero-cta{display:flex; gap:14px; align-items:center}
+    .btn{
+      background:linear-gradient(90deg,var(--neon) 0%, #29f1ff 100%);
+      color:#03222a;
+      border:none;
+      padding:10px 18px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 8px 30px rgba(0,230,255,0.12);
+      text-decoration:none;
+    }
+    .btn.secondary{
+      background:transparent;
+      color:var(--neon);
+      border:1px solid rgba(0,230,255,0.08);
+      box-shadow:none;
+    }
+
+    /* SECTION HEADINGS */
+    section{padding:36px 0 48px}
+    .sec-title{
+      display:block;
+      margin-bottom:22px;
+      color:var(--neon);
+      font-size:26px;
+      font-weight:700;
+    }
+
+    /* ABOUT */
+    .about{
+      display:flex;
+      gap:48px;
+      align-items:flex-start;
+    }
+    .about .about-text{flex:1; color:var(--muted)}
+    .about .about-text h3{color:var(--neon); margin-bottom:10px}
+
+    /* SERVICES grid (cards with neon outlines) */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      gap:20px;
+    }
+.card{
+  background: rgba(5, 24, 31, 0.842);
+  border-radius:12px;
+  padding:20px;
+  border:2px solid var(--neon);
+  box-shadow:
+      0 0 10px var(--neon),
+      0 0 22px rgba(8, 0, 255, 0.923),
+      inset 0 0 12px rgba(0,255,255,0.3);
+  transition:0.25s ease;
+  color: #000; /* TEKS HITAM */
+}
+
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow:
+      0 0 15px var(--neon),
+      0 0 35px rgba(0,255,255,0.8),
+      inset 0 0 16px rgba(0,255,255,0.5);
+}
+
+
+    .card .title{color:var(--neon); font-weight:700; margin-bottom:10px}
+    .card p{color:var(--muted); margin:0 0 12px 0}
+.card .pill{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgb(0, 255, 255);
+  color:#062224;     /* TEKS HITAM */
+  font-weight:600;
+  font-size:13px;
+  border:1px solid var(--neon);
+  box-shadow:
+      0 0 8px var(--neon),
+      0 0 16px rgb(0, 255, 255);
+}
+
+    .card::after{
+      content:"";
+      position:absolute;
+      right:-80px;
+      bottom:-80px;
+      width:220px;
+      height:220px;
+      background: radial-gradient(circle, rgba(0,230,255,0.06), transparent 40%);
+      filter:blur(20px);
+    }
+
+    /* SKILLS (bars + circular) */
+    .skills-wrap{display:flex; gap:24px; align-items:center; flex-wrap:wrap}
+    .skill-bars{flex:1; min-width:280px}
+    .skill{margin-bottom:12px}
+    .skill .label{font-size:13px; color:var(--muted); margin-bottom:6px}
+    .bar{
+      height:10px;
+      background:rgba(255,255,255,0.04);
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .bar > i{
+      display:block;
+      height:100%;
+      width:60%;
+      background: linear-gradient(90deg,var(--neon),var(--neon-2));
+      border-radius:999px;
+      box-shadow:0 6px 18px rgba(0,230,255,0.12);
+    }
+    .skill-circles{width:200px; display:flex; gap:18px; align-items:center; justify-content:center}
+    .circle{
+      width:80px; height:80px; border-radius:50%;
+      background:conic-gradient(var(--neon) 0% 72%, rgba(255,255,255,0.03) 72% 100%);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 28px rgba(32, 180, 196, 0.08);
+      color:#036d85; font-weight:800; font-size:14px;
+    }
+
+    /* PROJECTS */
+    .projects{display:flex; gap:14px; overflow:hidden}
+    .projects .thumb{flex:1; border-radius:10px; overflow:hidden; min-height:140px}
+    .projects img{width:100%; height:100%; object-fit:cover; display:block}
+
+    /* CONTACT */
+    .contact-wrap{
+      display:flex;
+      gap:28px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .contact-left{flex:1; min-width:280px}
+    .contact-right{width:420px; min-width:260px}
+    .contact-info{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:18px; border-radius:12px; color:var(--muted)}
+    .contact-info a{color:var(--neon); text-decoration:none; display:block; margin-bottom:8px; font-weight:600}
+    form{display:flex; flex-direction:column; gap:12px}
+    input, textarea{
+      background:transparent; border:1px solid rgb(8, 190, 235); padding:12px; border-radius:8px; color:var(--muted);
+    }
+    textarea{min-height:120px; resize:vertical}
+    .submit{background:linear-gradient(90deg,var(--neon),var(--neon-2)); color:#03222a; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer}
+
+    footer{margin-top:36px; padding:18px; text-align:center; color:rgba(255,255,255,0.45); font-size:13px}
+    
+    /* NEON GLOW UNTUK TOMBOL */
+    .neon {
+       box-shadow:
+      0 0 12px var(--neon),
+      0 0 22px var(--neon),
+      0 0 36px rgba(0, 230, 255, 0.5);
+       border: 1px solid var(--neon) !important;
+   }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{flex-direction:column; align-items:center; text-align:center}
+      .hero-left{order:0}
+      .hero-right{order:1}
+      .about{flex-direction:column; align-items:center; text-align:center}
+      .skills-wrap{flex-direction:column; align-items:stretch}
+      .contact-wrap{flex-direction:column}
+      header{padding:12px 18px}
+      main{padding-left:18px; padding-right:18px}
+    }
+
+    .social-icons {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.social-icons a {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--neon);
+  border: 2px solid var(--neon);
+  text-decoration: none;
+  box-shadow: 
+     0 0 12px var(--neon),
+     0 0 22px var(--neon),
+     0 0 38px rgba(0,230,255,0.5);
+  transition: 0.25s ease;
+}
+
+.social-icons a:hover {
+  background: var(--neon);
+  color: #08121a;
+  box-shadow:
+    0 0 15px var(--neon),
+    0 0 35px var(--neon),
+    0 0 55px var(--neon);
+}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">BKM AUDIO</div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#skills">Equipment</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+<section id="home" class="hero" aria-label="Hero section">
+
+  <!-- Teks di kiri -->
+<div class="hero-right">
+
+  <!-- teks kecil atas -->
+  <h4 style="color:var(--muted); font-size:20px; margin:0 0 4px 0;">
+    Hello, it's me
+  </h4>
+
+  <!-- teks besar utama -->
+  <h1 style="color:var(--neon); font-size:46px; font-weight:800; margin:0 0 10px 0;">
+    BKM AUDIO
+  </h1>
+
+  <!-- teks deskripsi -->
+  <h4 id="typing-text" 
+    style="color:var(--muted); font-size:16px; margin:0 0 20px 0; max-width:720px; white-space:pre-line;">
+  </h4>
+
+
+  <div class="hero-cta">
+    <a class="btn neon" href="https://wa.me/6283838430783" target="_blank">Chat WA</a>
+    <a class="btn secondary" href="#contact">Hubungi</a>
+  </div>
+
+</div>
+
+
+  <!-- Foto Bekham pindah ke kanan -->
+  <div class="hero-left">
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <img src="Bekham.jpg" alt="Bekham — BKM AUDIO">
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about" aria-label="About BKM AUDIO">
+<div class="md:w-1/2 px-6">
+    <h2 class="text-3xl font-bold mb-2">
+        <span style="color: white;">About</span>
+        <span style="color: #00eaff;">Us</span>
+    </h2>
+
+  <div class="about">
+
+    <!-- Avatar About Us: menggunakan LOGO -->
+    <div style="min-width:260px; display:flex; justify-content:center;">
+      <div class="avatar-wrap">
+        <div class="avatar">
+          <img src="logo sound.jpg" alt="Logo BKM AUDIO">
+        </div>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <h3>Siapa kami?</h3>
+      <p>
+        BKM AUDIO adalah tim teknisi audio profesional yang berpengalaman dalam menyediakan berbagai kebutuhan sound system untuk acara indoor maupun outdoor. Kami menangani layanan rental audio, instalasi sistem suara permanen, pengaturan audio untuk event kecil hingga skala besar, serta perawatan dan perbaikan perangkat audio.
+        Kami selalu mengutamakan kualitas suara yang jernih, keamanan perangkat, dan penyesuaian setelan audio sesuai karakter ruangan maupun kebutuhan acara. Dengan dukungan peralatan yang terawat serta tim teknisi yang terampil, BKM AUDIO siap memastikan setiap acara berjalan lebih maksimal, nyaman, dan terdengar profesional.
+        Kami telah menangani berbagai jenis acara seperti wedding, konser musik, event sekolah, seminar, acara komunitas, grand opening, gathering perusahaan, hingga instalasi audio ruangan untuk masjid, studio, kantor, dan gedung serbaguna.
+      </p>
+      <p style="margin-top:12px;color:var(--muted)">
+        <span class="pill">Contact: </span> cepat, profesional, dan harga kami tetap kompetitif tanpa mengurangi kualitas layanan.
+        Kepuasan Anda adalah prioritas utama kami
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- SERVICES -->
+  <section id="services" aria-label="Services">
+    <span class="sec-title">Our Services</span>
+    <div class="grid">
+      <div class="card">
+        <div class="title">Rental Sound System</div>
+        <p>Paket lengkap speaker, subwoofer, mixer, amplifier, mic, dan lighting untuk acara.</p>
+        <div class="pill">Paket Event</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Instalasi Audio</div>
+        <p>Pemasangan audio untuk masjid, aula, ruang pertemuan, dan studio dengan penataan kabel rapi.</p>
+        <div class="pill">Instalasi Profesional</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Perbaikan & Maintenance</div>
+        <p>Service speaker, perbaikan mixer, troubleshooting sinyal, dan penggantian komponen.</p>
+        <div class="pill">Service</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS / EQUIPMENT -->
+  <section id="skills" aria-label="Equipment">
+    <span class="sec-title">Our Equipment</span>
+    <div class="skills-wrap">
+      <div class="skill-bars">
+        <div class="skill">
+          <div class="label">Speaker Systems</div>
+          <div class="bar"><i style="width:88%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="label">Mixer & Processing</div>
+          <div class="bar"><i style="width:78%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="label">Microphones & Wireless</div>
+          <div class="bar"><i style="width:82%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="label">Lighting & Stage</div>
+          <div class="bar"><i style="width:66%"></i></div>
+        </div>
+      </div>
+
+      <div class="skill-circles">
+        <div class="circle">88%</div>
+        <div class="circle">78%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" aria-label="Projects">
+    <span class="sec-title">Latest Project</span>
+    <div class="projects" style="margin-top:8px">
+      <!-- sementara gunakan gambar placeholder (ganti nanti pakai PNG yang kamu mau) -->
+      <div class="thumb"><img src="projek 1.jpg" alt="Project 1"></div>
+      <div class="thumb"><img src="projek 2.jpg" alt="Project 2"></div>
+      <div class="thumb"><img src="projek 3.jpg" alt="Project 3"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-label="Contact">
+    <span class="sec-title">Contact Us</span>
+
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <div class="contact-info">
+          <strong>BKM AUDIO — Bekham</strong>
+          <p style="color:var(--muted); margin-top:8px">
+            Untuk booking, konsultasi teknis, atau tanya harga paket — silakan hubungi melalui salah satu pilihan di samping.
+          </p>
+
+          <!-- kontak klik -->
+          <div style="margin-top:12px">
+            <!-- WA: gunakan wa.me dengan kode negara -->
+            <a href="https://wa.me/6283838430783" target="_blank" rel="noopener">WhatsApp: +62 838-3843-0783</a>
+            <a href="mailto:muhammadbackhum@gmail.com">Email: muhammadbackhum@gmail.com</a>
+            <a href="https://www.tiktok.com/@bkm_audio?_r=1&_t=ZS-91AjfJH9sX3" target="_blank" rel="noopener">TikTok: @bkm_audio</a>
+            <a href="https://www.instagram.com/muhammad_bekham?igsh=MWFwbDZuZ2VxMDZqMA==" target="_blank" rel="noopener">Instagram: @muhammad_bekham</a>
+            <a href="https://maps.app.goo.gl/6TWdCJdBJnthABmf7" target="_blank" rel="noopener">Alamat (Map)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <form action="#" onsubmit="alert('Terima kasih! Pesan terkirim (demo).'); return false;">
+          <input type="text" placeholder="Nama" required />
+          <input type="email" placeholder="Email" required />
+          <input type="text" placeholder="Nomor / WA" value="+6283838430783" />
+          <textarea placeholder="Pesan"></textarea>
+          <button class="submit" type="submit">Kirim Pesan</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL MEDIA ICONS NEON -->
+  <div class="social-icons">
+
+    <a href="https://wa.me/6283838430783" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="https://www.instagram.com/muhammad_bekham?igsh=MWFwbDZuZ2VxMDZqMA==" target="_blank">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://www.tiktok.com/@bkm_audio?_r=1&_t=ZS-91AjfJH9sX3" target="_blank">
+        <i class="fab fa-tiktok"></i>
+    </a>
+
+    <a href="mailto:muhammadbackhum@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+    </a>
+
+    <a href="https://maps.app.goo.gl/6TWdCJdBJnthABmf7" target="_blank">
+        <i class="fas fa-map-marker-alt"></i>
+    </a>
+
+  </div>
+
+  <footer>
+    © <span id="yr"></span> BKM AUDIO — All rights reserved.
+  </footer>
+
+</main>
+
+<script>
+  // set tahun di footer
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // fallback: jika project gambar tidak ada, ganti tampilannya
+  const imgs = document.querySelectorAll('.projects img');
+  imgs.forEach(img=>{
+    img.onerror = ()=>{ 
+      img.style.objectFit='cover';
+      img.src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450"><rect width="100%" height="100%" fill="%23071b2a"/><text x="50%" y="50%" fill="%2399dbe7" font-size="22" font-family="Poppins" dominant-baseline="middle" text-anchor="middle">Project placeholder (ganti dengan project1.png)</text></svg>'
+    }
+  });
+</script>
+
+<script>
+const text = 
+"Sound System • Rental • Perawatan & Teknisi Audio Profesional.\n" +
+"Kami melayani acara wedding, konser, event sekolah, dan instalasi audio ruangan.";
+
+let index = 0;
+
+function typeEffect() {
+  const target = document.getElementById("typing-text");
+  if (index < text.length) {
+    target.textContent += text.charAt(index);
+    index++;
+    setTimeout(typeEffect, 35);
+  }
+}
+
+window.onload = typeEffect;
+</script>
+
+</body>
+</html>
